@@ -19,28 +19,42 @@
 
             <tbody>
 
-              <tr class="colorText" v-for="people of peoples" :key="people.id">
+              <tr class="colorText textStyle" v-for="people of peoples" :key="people.id">
 
-                <td class="textStyle">{{ people.name }}</td>
-                <td class="textStyle">{{ people.eye_color }}</td>
-                <td class="textStyle">{{ people.gender }}</td>
-                <td class="textStyle">{{ people.hair_color }}</td>
-                <td class="textStyle">{{ people.skin_color }}</td>
+                <td>{{ people.name }}</td>
+                <td>{{ people.eye_color }}</td>
+                <td>{{ people.gender }}</td>
+                <td>{{ people.hair_color }}</td>
+                <td>{{ people.skin_color }}</td>
                 <td>
-                  <button @click="editar(produto)" class="waves-effect btn-small yellow darken-1"><i class="material-icons">airplanemode_active</i></button>
+                  <button @click="getStarships(people)" :disabled="people.starships.length  === 0"  class="waves-effect btn-small yellow darken-1" v-b-modal.starships><i class="material-icons">rocket</i></button>
 
                 </td>
-
               </tr>
-
             </tbody>
-          
           </table>
-
         </b-card>
       </b-container>
+
+       <b-modal id="starships" hide-footer title="Starships">
+
+          <b-container fluid="xl">
+            <table>
+              <tbody>
+                <tr v-for="starship of starships" :key="starship.id">
+                  <td>{{ starship.name }}</td>
+                </tr>
+              </tbody>
+            </table>
+        </b-container>
+        
+       </b-modal>
+
     </div>
   </div>
+
+
+
 </template>
 
 <script>
@@ -51,21 +65,37 @@
     data(){
       return{
         peoples: [],
+        starships: []
          
       }
     },
     mounted(){
+      this.getListPeople()
+    },
 
-      People.getPeople().then(response =>{
+    methods:{
+      getListPeople(){
+        People.getPeople().then(response =>{
+          for(var i = 0; i < response.data.results.length; i++){
+            response.data.results[i].id = i;
+          }
+          this.peoples = response.data.results
+        })
+      },
 
-        for(var i = 0; i < response.data.results.length; i++){
-          response.data.results[i].id = i;
+      getStarships(people){
+        this.starships = []
+        for(var i = 0; i < people.starships.length; i++){
+          People.getStarships(people.starships[i]).then(response =>{
+          this.starships.push(response.data)
+          })
         }
-        this.peoples = response.data.results
-      })
-  
-    }
 
+        for(var j = 0; j < this.starships.length; j++){
+          this.starships[j].id = j;
+        }
+      }
+    }
   }
 </script>
 
@@ -73,6 +103,10 @@
 
 .textStyle {
   text-transform: uppercase
+}
+
+#starships {
+  background: transparent !important
 }
 
 .colorTable {
