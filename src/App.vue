@@ -4,12 +4,12 @@
       <b-container fluid="xl">
         <b-card tag="article" class="colorTable cardStyle">
 
-          <div class="clearfix"  v-if="peoples.length === 0">
-              <b-spinner  class="float-right"
+          <div class="text-center"  v-if="peoples.length === 0">
+              <b-spinner 
                 variant="light"
               ></b-spinner>
             </div>
-          <table>
+          <table  v-if="peoples.length > 0">
 
             <thead>
 
@@ -50,6 +50,13 @@
        <b-modal id="starships" centered hide-footer title="STARSHIPS">
 
           <b-container fluid="xl">
+
+          <div class="text-center"  v-if="starships.length === 0">
+              <b-spinner 
+                variant="dark"
+              ></b-spinner>
+            </div>
+
             <table>
               <tbody>
                 <tr v-for="starship of starships" :key="starship.id" class="textStyle">
