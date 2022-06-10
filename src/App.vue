@@ -2,7 +2,13 @@
   <div id="app" class="bg">
     <div class="p-3">
       <b-container fluid="xl">
-        <b-card tag="article" class="colorTable">
+        <b-card tag="article" class="colorTable cardStyle">
+
+          <div class="clearfix"  v-if="peoples.length === 0">
+              <b-spinner  class="float-right"
+                variant="light"
+              ></b-spinner>
+            </div>
           <table>
 
             <thead>
@@ -19,6 +25,7 @@
 
             <tbody>
 
+
               <tr class="colorText textStyle" v-for="people of peoples" :key="people.id">
 
                 <td>{{ people.name }}</td>
@@ -33,15 +40,19 @@
               </tr>
             </tbody>
           </table>
+
+          <button @click="getPreviusPeople()" :disabled="isDisabledPrevius" class="waves-effect btn-small yellow darken-1"><i class="material-icons">skip_previous</i></button>
+          <button @click="getNextPeople()" :disabled="isDisabledNext" class="waves-effect btn-small yellow darken-1 leftButtom"><i class="material-icons">skip_next</i></button>
+
         </b-card>
       </b-container>
 
-       <b-modal id="starships" hide-footer title="Starships">
+       <b-modal id="starships" centered hide-footer title="STARSHIPS">
 
           <b-container fluid="xl">
             <table>
               <tbody>
-                <tr v-for="starship of starships" :key="starship.id">
+                <tr v-for="starship of starships" :key="starship.id" class="textStyle">
                   <td>{{ starship.name }}</td>
                 </tr>
               </tbody>
@@ -65,7 +76,9 @@
     data(){
       return{
         peoples: [],
-        starships: []
+        starships: [],
+        nextUrl: null,
+        previusUrl:null
          
       }
     },
@@ -73,20 +86,54 @@
       this.getListPeople()
     },
 
+    computed: {
+      isDisabledNext() {
+        if(this.nextUrl === null){
+          return true
+        }
+        return false
+      },
+
+      isDisabledPrevius() {
+        if(this.previusUrl === null){
+          return true
+        }
+        return false
+      },
+    },
+
     methods:{
       getListPeople(){
         People.getPeople().then(response =>{
-          for(var i = 0; i < response.data.results.length; i++){
-            response.data.results[i].id = i;
-          }
-          this.peoples = response.data.results
+         this.mountVars(response)
         })
       },
+
+      mountVars(res){
+         for(var i = 0; i < res.data.results.length; i++){
+            res.data.results[i].id = i;
+          }
+          this.peoples = res.data.results
+          this.nextUrl = res.data.next
+          this.previusUrl = res.data.previous
+      },
+
+      getNextPeople(){
+        People.getUrlInfo(this.nextUrl).then(response =>{
+         this.mountVars(response)
+        })
+      },
+
+      getPreviusPeople(){
+          People.getUrlInfo(this.previusUrl).then(response =>{
+          this.mountVars(response)
+          })
+        },
 
       getStarships(people){
         this.starships = []
         for(var i = 0; i < people.starships.length; i++){
-          People.getStarships(people.starships[i]).then(response =>{
+          People.getUrlInfo(people.starships[i]).then(response =>{
           this.starships.push(response.data)
           })
         }
@@ -105,6 +152,13 @@
   text-transform: uppercase
 }
 
+.cardStyle{
+    border-width: medium;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 15px;
+}
+
 #starships {
   background: transparent !important
 }
@@ -121,6 +175,10 @@
 padding: $spacer !important;
 }
 
+.leftButtom{
+    margin-left: 10px;
+}
+
 body, html {
   height: 100%;
   margin: 0;
@@ -129,6 +187,19 @@ body, html {
 .bg {
   /* The image used */
   background-image: url("https://i.pinimg.com/originals/d7/a6/11/d7a61190a836bdcfc62bf97af4f4c74b.png") !important;
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bgModal {
+  /* The image used */
+  background-image: url("http://s2.glbimg.com/ZEOHcuk_sJU-KDKsfNR0Fy0bKbM=/smart/e.glbimg.com/og/ed/f/original/2017/09/05/estrela-da-morte.jpg") !important;
 
   /* Full height */
   height: 100%; 

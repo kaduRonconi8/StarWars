@@ -6,10 +6,8 @@ export default{
         return http.get('people');
     },
 
-    getStarships:(url) => {
-
+    getUrlInfo:(url) => {
       return http.get(url);
-
     }
 
 }
