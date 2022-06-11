@@ -203,17 +203,4 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-.bgModal {
-  /* The image used */
-  background-image: url("http://s2.glbimg.com/ZEOHcuk_sJU-KDKsfNR0Fy0bKbM=/smart/e.glbimg.com/og/ed/f/original/2017/09/05/estrela-da-morte.jpg") !important;
-
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 </style>
