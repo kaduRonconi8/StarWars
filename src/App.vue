@@ -91,6 +91,8 @@
     },
 
     computed: {
+
+      //Verificacao de quando o botao habilita
       isDisabledNext() {
         if(this.nextUrl === null){
           return true
@@ -107,12 +109,15 @@
     },
 
     methods:{
+
+      //Funcao responsavel por buscar todas as pessoas iniciais 
       getListPeople(){
         People.getPeople().then(response =>{
          this.mountVars(response)
         })
       },
 
+      //Funcao responsavel por montar o array de pessoas e passar os registros 
       mountVars(res){
          for(var i = 0; i < res.data.results.length; i++){
             res.data.results[i].id = i;
@@ -122,18 +127,21 @@
           this.previusUrl = res.data.previous
       },
 
+      //Funcao que buscar os proximos registros 
       getNextPeople(){
         People.getUrlInfo(this.nextUrl).then(response =>{
          this.mountVars(response)
         })
       },
 
+      //Funcao que busca os registros anteriores
       getPreviusPeople(){
-          People.getUrlInfo(this.previusUrl).then(response =>{
-          this.mountVars(response)
-          })
-        },
+        People.getUrlInfo(this.previusUrl).then(response =>{
+        this.mountVars(response)
+        })
+      },
 
+      //Funcao que buscas as aeronaves
       getStarships(people){
         this.starships = []
         for(var i = 0; i < people.starships.length; i++){
