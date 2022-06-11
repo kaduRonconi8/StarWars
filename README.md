@@ -20,5 +20,9 @@ npm run build
 npm run lint
 ```
 
+### Ponto de atenção 
+
+Os botão de naves que não habilitarem, significa que o personagem não possui
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
