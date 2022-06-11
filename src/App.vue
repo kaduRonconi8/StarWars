@@ -147,11 +147,8 @@
         for(var i = 0; i < people.starships.length; i++){
           People.getUrlInfo(people.starships[i]).then(response =>{
           this.starships.push(response.data)
+          this.starships[i].id = i;
           })
-        }
-
-        for(var j = 0; j < this.starships.length; j++){
-          this.starships[j].id = j;
         }
       }
     }
