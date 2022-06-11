@@ -13,7 +13,7 @@
 
             <thead>
 
-              <tr class="colorText" id="linha-horizontal">
+              <tr class="colorText line">
                 <th>NAME</th>
                 <th>EYE COLOR</th>
                 <th>GENDER</th>
@@ -164,9 +164,9 @@
     text-transform: uppercase
   }
 
-  #linha-horizontal {
+  .line {
       width: 300px;
-      border: 1px solid grey;
+      border-bottom: 1px solid grey;
   }
 
   .cardStyle{
