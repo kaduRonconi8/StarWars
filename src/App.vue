@@ -13,7 +13,7 @@
 
             <thead>
 
-              <tr class="colorText">
+              <tr class="colorText" id="linha-horizontal">
                 <th>NAME</th>
                 <th>EYE COLOR</th>
                 <th>GENDER</th>
@@ -22,9 +22,8 @@
               </tr>
 
             </thead>
-
+          
             <tbody>
-
 
               <tr class="colorText textStyle" v-for="people of peoples" :key="people.id">
 
@@ -70,8 +69,6 @@
 
     </div>
   </div>
-
-
 
 </template>
 
@@ -155,52 +152,57 @@
 
 <style>
 
-.textStyle {
-  text-transform: uppercase
-}
+  .textStyle {
+    text-transform: uppercase
+  }
 
-.cardStyle{
-    border-width: medium;
-    border-style: solid;
-    border-color: grey;
-    border-radius: 15px;
-}
+  #linha-horizontal {
+      width: 300px;
+      border: 1px solid grey;
+  }
 
-#starships {
-  background: transparent !important
-}
+  .cardStyle{
+      border-width: medium;
+      border-style: solid;
+      border-color: grey;
+      border-radius: 15px;
+  }
 
-.colorTable {
-  background-color: black
-}
+  #starships {
+    background: transparent !important
+  }
 
-.colorText {
-  color: white
-}
+  .colorTable {
+    background-color: black
+  }
 
-.p-3 {
-padding: $spacer !important;
-}
+  .colorText {
+    color: white
+  }
 
-.leftButtom{
-    margin-left: 10px;
-}
+  .p-3 {
+  padding: $spacer !important;
+  }
 
-body, html {
-  height: 100%;
-  margin: 0;
-}
+  .leftButtom{
+      margin-left: 10px;
+  }
 
-.bg {
-  /* The image used */
-  background-image: url("https://i.pinimg.com/originals/d7/a6/11/d7a61190a836bdcfc62bf97af4f4c74b.png") !important;
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
 
-  /* Full height */
-  height: 100%; 
+  .bg {
+    /* The image used */
+    background-image: url("https://i.pinimg.com/originals/d7/a6/11/d7a61190a836bdcfc62bf97af4f4c74b.png") !important;
 
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 </style>
